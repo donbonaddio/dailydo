@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Do — your day on one page</title>
+<meta name="description" content="Daily Do for iPhone puts your day on one large-print page: appointments, packages, sorted email, the shopping list, what's due and your teams' scores. Private by design. Support: don@donstech.com.">
+<meta property="og:title" content="Daily Do — your day on one page">
+<meta property="og:description" content="Appointments, packages, email, shopping list and scores on one printable sheet. Everything stays on your iPhone.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1c7861">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231c7861'/%3E%3Crect x='24' y='14' width='52' height='72' rx='6' fill='%23fff'/%3E%3Cpath d='M33 38l5 5 9-11M33 58l5 5 9-11' stroke='%231c7861' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='52' y='36' width='16' height='5' rx='2.5' fill='%23c9ced3'/%3E%3Crect x='52' y='56' width='12' height='5' rx='2.5' fill='%23c9ced3'/%3E%3C/svg%3E">
+<style>
+  :root { --teal: #1c7861; --bg: #f6f4ef; --paper: #ffffff; --ink: #16191c; --muted: #5d646b; --line: #d9dcdf; }
+  @media (prefers-color-scheme: dark) {
+    :root { --teal: #43b893; --bg: #0d1012; --paper: #171b1e; --ink: #eef0f2; --muted: #9aa1a8; --line: #2a3035; }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    min-height: 100%;
+  }
+  .sheet {
+    width: 150px;
+    height: 194px;
+    background: var(--paper);
+    border-radius: 14px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.14), 0 0 0 1px var(--line);
+    margin-bottom: 2.5rem;
+    padding: 22px 18px;
+    text-align: left;
+    transform: rotate(-3deg);
+  }
+  .sheet .bar { height: 12px; width: 70%; background: var(--teal); border-radius: 6px; margin-bottom: 20px; }
+  .sheet .row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .sheet .box { width: 18px; height: 18px; border: 2.5px solid var(--ink); border-radius: 3px; flex: none; position: relative; }
+  .sheet .box.done::after {
+    content: ""; position: absolute; left: 4px; top: 0; width: 6px; height: 11px;
+    border: solid var(--teal); border-width: 0 3px 3px 0; transform: rotate(45deg);
+  }
+  .sheet .line { height: 7px; background: var(--line); border-radius: 4px; flex: 1; }
+  .sheet .line.short { flex: 0 0 55%; }
+  h1 {
+    font-size: clamp(3rem, 14vw, 5.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--teal);
+    line-height: 1;
+  }
+  .tagline {
+    margin-top: 1.1rem;
+    font-size: clamp(1.1rem, 4.5vw, 1.45rem);
+    font-weight: 500;
+    color: var(--muted);
+    max-width: 26ch;
+    line-height: 1.4;
+  }
+  .features {
+    margin-top: 2rem;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 34rem;
+  }
+  .features li {
+    padding: 0.45rem 0.95rem;
+    border-radius: 999px;
+    background: var(--paper);
+    box-shadow: 0 0 0 1px var(--line);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .badge {
+    margin-top: 2rem;
+    display: inline-block;
+    padding: 0.6rem 1.3rem;
+    border: 1.5px solid var(--teal);
+    border-radius: 999px;
+    color: var(--teal);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .private {
+    margin-top: 2rem;
+    max-width: 32ch;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+  .support {
+    margin-top: 2.4rem;
+    max-width: 32ch;
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .support h2 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+  .support a { color: var(--teal); text-decoration: none; font-weight: 600; }
+  .support a:hover { text-decoration: underline; }
+  .links { margin-top: 0.6rem; font-size: 0.95rem; }
+  footer {
+    margin-top: 2.6rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--teal); }
+</style>
+</head>
+<body>
+  <div class="sheet" aria-hidden="true">
+    <div class="bar"></div>
+    <div class="row"><span class="box done"></span><span class="line"></span></div>
+    <div class="row"><span class="box done"></span><span class="line short"></span></div>
+    <div class="row"><span class="box"></span><span class="line"></span></div>
+    <div class="row"><span class="box"></span><span class="line short"></span></div>
+  </div>
+  <h1>Daily Do</h1>
+  <p class="tagline">Your whole day on one page &mdash; big, clear, and ready to print.</p>
+  <ul class="features" aria-label="What's on the page">
+    <li>Today &amp; the week ahead</li>
+    <li>Packages</li>
+    <li>Email, sorted</li>
+    <li>Shopping list</li>
+    <li>What's due</li>
+    <li>Your teams</li>
+  </ul>
+  <span class="badge">For iPhone</span>
+  <p class="private"><strong>Private by design.</strong> Everything stays on your iPhone. No account, no tracking, no ads.</p>
+  <section class="support" id="support">
+    <h2>Support &amp; contact</h2>
+    <p>Questions or feedback? Email <a href="mailto:don@donstech.com?subject=Daily%20Do%20support">don@donstech.com</a> &mdash; I read every message.</p>
+    <p class="links"><a href="privacy.html">Privacy Policy</a></p>
+  </section>
+  <footer>A <a href="https://donstech.com">donstech</a> app</footer>
+</body>
+</html>
